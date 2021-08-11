@@ -10,4 +10,6 @@ public class TileData : ScriptableObject
 
     public int moveDifficulty;
     public int rangeMultiplier;
+
+    public bool emptyTile;
 }
