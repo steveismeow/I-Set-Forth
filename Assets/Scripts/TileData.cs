@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu]
 public class TileData : ScriptableObject
 {
-    public TileBase[] tiles;
+    public TileBase tile;
 
     public int moveDifficulty;
     public int rangeMultiplier;

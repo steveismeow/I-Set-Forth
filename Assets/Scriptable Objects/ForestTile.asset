@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eed725e4edadfa0488bb0d047ec9094d, type: 3}
-  m_Name: EmptyTile
+  m_Name: ForestTile
   m_EditorClassIdentifier: 
-  tiles:
-  - {fileID: 11400000, guid: 653cc233ee93fc34dbc35da80106245c, type: 2}
-  moveDifficulty: 0
-  rangeMultiplier: 0
-  emptyTile: 1
+  tile: {fileID: 11400000, guid: bc41d33669e3c2947b6c35cf4f1d3968, type: 2}
+  moveDifficulty: 1
+  rangeMultiplier: 1
+  emptyTile: 0
