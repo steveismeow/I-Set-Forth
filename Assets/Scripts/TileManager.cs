@@ -12,6 +12,8 @@ public class TileManager : MonoBehaviour
     [SerializeField]
     private List<TileData> tileDataList;
 
+    [SerializeField]
+    private int adjacencyRange = 1;
 
 
     private Dictionary<TileBase, TileData> dataFromTiles;
@@ -21,6 +23,7 @@ public class TileManager : MonoBehaviour
     #region Unity Callback Functions
     private void Awake()
     {
+        //Set Up Dictionaries
         dataFromTiles = new Dictionary<TileBase, TileData>();
         tileNameCodex = new Dictionary<string, TileData>();
 
@@ -29,6 +32,7 @@ public class TileManager : MonoBehaviour
             dataFromTiles.Add(tileData.tile, tileData);
             tileNameCodex.Add(tileData.name, tileData);
 
+            //Check what keys are available at runtime
             foreach (var key in tileNameCodex.Keys)
             {
                 print(key);
@@ -46,6 +50,7 @@ public class TileManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        //Test to determine what tile is selected and what data is associated with that tile
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -53,12 +58,23 @@ public class TileManager : MonoBehaviour
 
             TileBase selectedTile = tileMap.GetTile(gridPosition);
 
-            float movementDifficulty = dataFromTiles[selectedTile].moveDifficulty;
-            float rangeMultiplier = dataFromTiles[selectedTile].rangeMultiplier;
-
             print(selectedTile + "at position" + gridPosition);
-            print("Movement difficulty =" + movementDifficulty);
-            print("Range multiplier =" + rangeMultiplier);
+
+            if (selectedTile != null && selectedTile == tileNameCodex["Placement Tile"].tile)
+            {
+                print("you have selected a placement tile");
+                PlaceTile(gridPosition, "Forest Tile");
+
+            }
+
+
+            //Test variables to ensure we can retrieve the tile's data
+            //float movementDifficulty = dataFromTiles[selectedTile].moveDifficulty;
+            //float rangeMultiplier = dataFromTiles[selectedTile].rangeMultiplier;
+
+
+            //print("Movement difficulty =" + movementDifficulty);
+            //print("Range multiplier =" + rangeMultiplier);
 
         }
     }
@@ -66,6 +82,9 @@ public class TileManager : MonoBehaviour
     #endregion
 
 
+    #region Get Functions
+
+    //Get all tile Vector3 positions
     private List<Vector3> GetTileLocations()
     {
         List<Vector3> tileWorldLocations = new List<Vector3>();
@@ -73,7 +92,7 @@ public class TileManager : MonoBehaviour
         foreach (var pos in tileMap.cellBounds.allPositionsWithin)
         {
             Vector3Int localPos = new Vector3Int(pos.x, pos.y, pos.z);
-            Vector3 position = tileMap.CellToWorld(localPos);
+            //Vector3 position = GetVector3FromGridPosition(localPos);
 
             if (tileMap.HasTile(localPos))
             {
@@ -85,6 +104,19 @@ public class TileManager : MonoBehaviour
 
     }
 
+    //Get Vector3 from Vector3Int
+    private Vector3 GetVector3FromGridPosition(Vector3Int localPos)
+    {
+        Vector3 position = tileMap.CellToWorld(localPos);
+
+        return position;
+    }
+
+
+    #endregion
+
+
+    //Set Placement Tiles at startup
     private void InitialTileAdjacencySetUp()
     {
         List<Vector3> tileLocations = GetTileLocations();
@@ -96,27 +128,63 @@ public class TileManager : MonoBehaviour
 
     }
 
+    //Analyze the board and place Placement Tiles adjacent to existing tiles on the tilemap
     private void PlacementTileAdjacency(Vector3 tileLocation)
     {
-        for (int x = (int)(tileLocation.x - 1); x <= (int)(tileLocation.x + 1); x++)
+        //Searches a cross-shaped section in all cardinal directions from tileLocation for nuill space and places Placement Tile at each null
+        //Search x directions
+        for (int x = (int)(tileLocation.x - adjacencyRange); x <= (int)(tileLocation.x + adjacencyRange); x++)
         {
-            for (int y = (int)(tileLocation.y - 1); y <= (int)(tileLocation.y + 1); y++)
+            Vector3Int locVector = new Vector3Int(x, (int)tileLocation.y, (int)tileLocation.z);
+
+            if (tileMap.GetTile(locVector) == null)
             {
-                Vector3Int locVector = new Vector3Int(x, y, (int)tileLocation.z);
+                //set space tile
+                tileMap.SetTile(locVector, tileNameCodex["Placement Tile"].tile);
+            }
+        }
+        //Search y directions
+        for (int y = (int)(tileLocation.y - adjacencyRange); y <= (int)(tileLocation.y + adjacencyRange); y++)
+        {
+            Vector3Int locVector = new Vector3Int((int)tileLocation.x, y, (int)tileLocation.z);
 
-                if (tileMap.GetTile(locVector) == null)
-                {
-                    //set space tile
-                    tileMap.SetTile(locVector, tileNameCodex["Placement Tile"].tile);
-                }
-
-
+            if (tileMap.GetTile(locVector) == null)
+            {
+                //set space tile
+                tileMap.SetTile(locVector, tileNameCodex["Placement Tile"].tile);
             }
         }
 
+
+        ////Searches a 3x3 grid centered on the tileLocation for null space and places Placement Tile at each null
+        //for (int x = (int)(tileLocation.x - adjacencyRange); x <= (int)(tileLocation.x + adjacencyRange); x++)
+        //{
+        //    for (int y = (int)(tileLocation.y - adjacencyRange); y <= (int)(tileLocation.y + adjacencyRange); y++)
+        //    {
+        //        Vector3Int locVector = new Vector3Int(x, y, (int)tileLocation.z);
+
+        //        if (tileMap.GetTile(locVector) == null)
+        //        {
+        //            //set space tile
+        //            tileMap.SetTile(locVector, tileNameCodex["Placement Tile"].tile);
+        //        }
+        //    }
+        //}
+
     }
 
-    //Place Tile ()
+    //Place Tile
+    private void PlaceTile(Vector3Int gridPosition, string tileName)
+    {
+        tileMap.SetTile(gridPosition, tileNameCodex[tileName].tile);
+
+        Vector3 position = GetVector3FromGridPosition(gridPosition);
+
+        PlacementTileAdjacency(position);
+
+    }
+
+
 
 }
 
