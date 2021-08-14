@@ -112,6 +112,14 @@ public class TileManager : MonoBehaviour
         return position;
     }
 
+    //Get Vector3Int from Vector3
+    private Vector3Int GetVector3IntFromPosition(Vector3 position)
+    {
+        Vector3Int localPos = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
+
+        return localPos;
+    }
+
 
     #endregion
 
@@ -128,10 +136,20 @@ public class TileManager : MonoBehaviour
 
     }
 
-    //Analyze the board and place Placement Tiles adjacent to existing tiles on the tilemap
+    //Analyze the board and place Placement Tiles adjacent to existing tiles on the tilemap using their Vector3 position
     private void PlacementTileAdjacency(Vector3 tileLocation)
     {
-        //Searches a cross-shaped section in all cardinal directions from tileLocation for nuill space and places Placement Tile at each null
+        //A* pathfinding to determine adjacencyRange?/////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //List<TileBase> adjacentTiles = new List<TileBase>();
+
+        ////Add tile at tileLocation to list
+        //Vector3Int gridPosition = GetVector3IntFromPosition(tileLocation);
+        //adjacentTiles.Add(tileMap.GetTile(gridPosition));
+
+        //Recursive method for determining adjacency
+
+
+        //Searches a cross-shaped section in all cardinal directions from tileLocation for nuill space and places Placement Tile at each null//////////////////
         //Search x directions
         for (int x = (int)(tileLocation.x - adjacencyRange); x <= (int)(tileLocation.x + adjacencyRange); x++)
         {
@@ -156,7 +174,7 @@ public class TileManager : MonoBehaviour
         }
 
 
-        ////Searches a 3x3 grid centered on the tileLocation for null space and places Placement Tile at each null
+        ////Searches a 3x3 grid centered on the tileLocation for null space and places Placement Tile at each null////////////////////////////////////////////////
         //for (int x = (int)(tileLocation.x - adjacencyRange); x <= (int)(tileLocation.x + adjacencyRange); x++)
         //{
         //    for (int y = (int)(tileLocation.y - adjacencyRange); y <= (int)(tileLocation.y + adjacencyRange); y++)
@@ -179,6 +197,8 @@ public class TileManager : MonoBehaviour
         tileMap.SetTile(gridPosition, tileNameCodex[tileName].tile);
 
         Vector3 position = GetVector3FromGridPosition(gridPosition);
+
+        print(position);
 
         PlacementTileAdjacency(position);
 
