@@ -105,21 +105,25 @@ public class TileManager : MonoBehaviour
     }
 
     //Get Vector3 from Vector3Int
-    private Vector3 GetVector3FromGridPosition(Vector3Int localPos)
+    public Vector3 GetVector3FromGridPosition(Vector3Int gridPosition)
     {
-        Vector3 position = tileMap.CellToWorld(localPos);
+        Vector3 position = tileMap.CellToWorld(gridPosition);
 
         return position;
     }
 
     //Get Vector3Int from Vector3
-    private Vector3Int GetVector3IntFromPosition(Vector3 position)
+    public Vector3Int GetVector3IntFromPosition(Vector3 position)
     {
-        Vector3Int localPos = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
+        Vector3Int gridPosition = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
 
-        return localPos;
+        return gridPosition;
     }
 
+    public Vector3 GetTruePosition(Vector3Int gridPosition)
+    {
+        return tileMap.GetCellCenterWorld(gridPosition);
+    }
 
     #endregion
 
