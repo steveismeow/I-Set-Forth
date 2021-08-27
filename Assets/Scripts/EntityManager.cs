@@ -35,4 +35,7 @@ public class EntityManager : MonoBehaviour
         //Add to entity list
         entities.Add(entityObject);
     }
+
+    public List<GameObject> GetEntityList() => entities;
+
 }

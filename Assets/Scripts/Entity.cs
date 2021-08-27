@@ -7,6 +7,7 @@ public class Entity : MonoBehaviour
     [SerializeField]
     private EntityData entityData;
 
+    public int level;
     public int maxAP;
     public int maxHealth;
     public int maxMana;
