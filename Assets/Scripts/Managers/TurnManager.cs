@@ -11,15 +11,17 @@ public class TurnManager : MonoBehaviour
     private List<Entity> ActiveEntities = new List<Entity>();
 
 
-    // Start is called before the first frame update
     void Start()
     {
-        //Add Player Object
         FilterActiveEntities(entityManager.GetEntityList());
         SortActiveEntities();
+        PopulateTurnOrderList();
+
+        //Tell entity at TurnOrderList[0] to take its turn
+        //entity.currentState = BatterUp!(this is a joke, but it may be worthwhile to utilize a simple entity state machine,
+        //in which the entity's turn coroutine can begin or whatever)
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -42,6 +44,24 @@ public class TurnManager : MonoBehaviour
     private void SortActiveEntities()
     {
         ActiveEntities.Sort((x, y) => x.level.CompareTo(y.level));
+    }
+
+    private void PopulateTurnOrderList()
+    {
+        foreach(Entity entity in ActiveEntities)
+        {
+            //if entity is the Player
+            if (entity.name == "Player")
+            {
+                //Insert at index 0
+                TurnOrderList.Insert(0, entity.gameObject);
+            }
+            else
+            {
+                //add to bottom of the list
+                TurnOrderList.Add(entity.gameObject);
+            }
+        }
     }
 
 
