@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,15 +14,12 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     private List<Entity> ActiveEntities = new List<Entity>();
 
-    private Player player;
-
     private bool entityIsTakingItsTurn;
     private Coroutine executingTurnCoroutine;
 
 
     void Start()
     {
-        player = entityManager.Player;
         TurnOrderReset();
 
         //Tell entity at TurnOrderList[0] to take its turn
@@ -29,12 +27,10 @@ public class TurnManager : MonoBehaviour
         //in which the entity's turn coroutine can begin or whatever)
     }
 
-    void Update()
-    {
-
-
-    }
-
+    /// <summary>
+    /// Filters the list of entities by "active" status.
+    /// </summary>
+    /// <param name="entityList">list of all entities on the gameboard</param>
     private void FilterActiveEntities(List<Entity> entityList)
     {
         ActiveEntities = entityManager.GetEntityList();
@@ -51,53 +47,49 @@ public class TurnManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Sorts active entity list by their level.
+    /// </summary>
     private void SortActiveEntities()
     {
         ActiveEntities.Sort((x, y) => x.level.CompareTo(y.level));
     }
 
+    /// <summary>
+    /// Adds all entities to the TurnOrderList. Player goes first and then all remaining entities.
+    /// </summary>
     private void PopulateTurnOrderList()
     {
-        TurnOrderList = ActiveEntities;
+        //Add player to the top of the initiative.
+        TurnOrderList.Add(entityManager.GetPlayer());
+        //Add all active entities to the turn order.
+        TurnOrderList.AddRange(ActiveEntities);
 
-        TurnOrderList.Insert(0, player);
+        //TurnOrderList = ActiveEntities;
+        //TurnOrderList.Insert(0, entityManager.GetPlayer());
     }
 
-    //public bool EndOfTurnTrigger() => entityIsTakingItsTurn = false;
 
+    /// <summary>
+    /// Coroutine to handle turn order. Iterates through the entire TurnOrderList and yields until the entity turn has complete and then removes entity from the turn order.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator ExecutingTurns()
     {
         Entity entity;
-
+        print("Starting Turns");
         while (TurnOrderList.Count != 0)
         {
+            // Gets next entity up in the turnorder
             entity = TurnOrderList[0];
 
+            print("Starting entity turn");
+            //Sets endofturn
             entity.StartTurn();
 
-            print("Player StartTurn() called");
+            yield return new WaitWhile(()=>entity.GetTurnStatus());
 
-            yield return new WaitForEndOfFrame();
-
-            //THIS DOESNT WORK--------------------------------------------------------
-            //yield return new WaitUntil(() => entity.GetEndOfTurnBool());
-
-            //THIS DOESNT WORK--------------------------------------------------------
-            //entityIsTakingItsTurn = true;
-
-            //while (entityIsTakingItsTurn)
-            //{
-            //    if (entity.GetEndOfTurnBool() == true)
-            //    {
-            //        entityIsTakingItsTurn = false;
-            //        print("entity has finished, entityistakingitsturn = " + entityIsTakingItsTurn);
-
-            //        yield return null;
-            //    }
-            //}
-
-            print("Turn passed");
-
+            print("Removing entity from turnorder");
             TurnOrderList.Remove(entity);
         }
 
@@ -108,14 +100,15 @@ public class TurnManager : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Runs all functions associated with repopulating turn order with entities and running turn coroutines.
+    /// </summary>
     private void TurnOrderReset()
     {
         FilterActiveEntities(entityManager.GetEntityList());
         SortActiveEntities();
         PopulateTurnOrderList();
-
-        executingTurnCoroutine = StartCoroutine(ExecutingTurns());
+        StartCoroutine(ExecutingTurns());
     }
 
 

@@ -386,3 +386,4 @@ MonoBehaviour:
   curAP: 0
   curHealth: 0
   curMana: 0
+  myTurn: 0

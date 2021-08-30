@@ -23,7 +23,7 @@ public class Entity : MonoBehaviour
 
     private Vector3 curLocation;
 
-    protected bool endOfTurn;
+    protected bool myTurn;
 
     private void Awake()
     {
@@ -50,14 +50,22 @@ public class Entity : MonoBehaviour
         this.curMana = entityData.baseMana;
     }
 
-
+    /// <summary>
+    /// Sets up entity for the beginning of it's turn.
+    /// </summary>
     public virtual void StartTurn()
     {
-        print("Player's turn has begun");
-        endOfTurn = false;
+        myTurn = true;
     }
 
-    public virtual bool EndOfTurnTrigger() => endOfTurn = true;
+    /// <summary>
+    /// Finishes entity turn.
+    /// </summary>
+    public virtual void EndOfTurnTrigger() => myTurn = false;
 
-    public virtual bool GetEndOfTurnBool() => endOfTurn;
+    /// <summary>
+    /// Get function to access myTurn from this class.
+    /// </summary>
+    /// <returns>myTurn</returns>
+    public virtual bool GetTurnStatus() => myTurn;
 }

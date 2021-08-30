@@ -23,11 +23,6 @@ public class EntityManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void SpawnPlayer(GameObject player, Vector3Int gridPosition)
     {
@@ -35,7 +30,7 @@ public class EntityManager : MonoBehaviour
 
         GameObject entityObject = Instantiate(player, location, Quaternion.identity);
 
-        Player = player.GetComponent<Player>();
+        Player = entityObject.GetComponent<Player>();
     }
 
     private void SpawnEntity(GameObject entity, Vector3Int gridPosition)
@@ -49,5 +44,7 @@ public class EntityManager : MonoBehaviour
     }
 
     public List<Entity> GetEntityList() => entities;
+
+    public Player GetPlayer() => Player;
 
 }

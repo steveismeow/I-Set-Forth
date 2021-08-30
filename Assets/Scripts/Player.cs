@@ -7,37 +7,31 @@ public class Player : Entity
 
     private void Update()
     {
-    }
-
-    private void FixedUpdate()
-    {
-        print(endOfTurn);
-        
-        if (!endOfTurn)
+ 
+        if (myTurn)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            //Temp: passes turn on spacebar
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                print("endofturntrigger");
                 EndOfTurnTrigger();
             }
 
         }
     }
 
+    //Leaving here in case we want to modify theses, otherwise these base functions are already defined in Entity.
+    //public override void StartTurn()
+    //{
+    //    base.StartTurn();
+    //}
 
-    public override void StartTurn()
-    {
-        base.StartTurn();
+    //public override void EndOfTurnTrigger()
+    //{
+    //    base.EndOfTurnTrigger();
+    //}
 
-    }
-
-    public override bool EndOfTurnTrigger()
-    {
-        return base.EndOfTurnTrigger();
-    }
-
-    public override bool GetEndOfTurnBool()
-    {
-        return base.GetEndOfTurnBool();
-    }
+    //public override bool GetTurnStatus()
+    //{
+    //    return base.GetTurnStatus();
+    //}
 }
