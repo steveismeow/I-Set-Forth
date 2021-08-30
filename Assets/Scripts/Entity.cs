@@ -8,6 +8,8 @@ public class Entity : MonoBehaviour
 
     [SerializeField]
     private EntityData entityData;
+    [SerializeField]
+    private EntityUIFrameData frame;
 
     public int level;
     public int maxAP;
@@ -22,7 +24,6 @@ public class Entity : MonoBehaviour
     public int curMana;
 
     private Vector3 curLocation;
-
     protected bool myTurn;
 
     private void Awake()
@@ -31,6 +32,11 @@ public class Entity : MonoBehaviour
     }
 
     private void Start()
+    {
+
+    }
+
+    private void Update()
     {
 
     }
@@ -47,11 +53,6 @@ public class Entity : MonoBehaviour
         this.curHealth = entityData.baseHealth;
         this.curAP = entityData.baseAP;
         this.curMana = entityData.baseMana;
-    }
-
-    private void Update()
-    {
-        
     }
 
     /// <summary>
@@ -74,4 +75,5 @@ public class Entity : MonoBehaviour
     public virtual bool GetTurnStatus() => myTurn;
 
     public virtual Vector3 GetPostion() => curLocation;
+
 }
