@@ -44,7 +44,6 @@ public class EntityManager : MonoBehaviour
     }
 
     public List<Entity> GetEntityList() => entities;
-
     public Player GetPlayer() => Player;
 
 }

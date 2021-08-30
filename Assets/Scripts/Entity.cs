@@ -28,7 +28,6 @@ public class Entity : MonoBehaviour
     private void Awake()
     {
         Initialize(entityData);
-
     }
 
     private void Start()
@@ -50,6 +49,11 @@ public class Entity : MonoBehaviour
         this.curMana = entityData.baseMana;
     }
 
+    private void Update()
+    {
+        
+    }
+
     /// <summary>
     /// Sets up entity for the beginning of it's turn.
     /// </summary>
@@ -68,4 +72,6 @@ public class Entity : MonoBehaviour
     /// </summary>
     /// <returns>myTurn</returns>
     public virtual bool GetTurnStatus() => myTurn;
+
+    public virtual Vector3 GetPostion() => curLocation;
 }
