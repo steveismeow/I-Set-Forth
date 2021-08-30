@@ -376,6 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityData: {fileID: 11400000, guid: b5976ba7a11d7a4428c0906f9584244c, type: 2}
+  level: 1
   maxAP: 0
   maxHealth: 0
   maxMana: 0

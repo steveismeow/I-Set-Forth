@@ -8,15 +8,19 @@ public class EntityManager : MonoBehaviour
 
     public GameObject playerPrefab;
 
+    public Player Player;
+
     public TileManager tileManager;
 
-    private List<GameObject> entities = new List<GameObject>();
+    [SerializeField]
+    private List<Entity> entities = new List<Entity>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //Spawn the player at 0,0
-        SpawnEntity(playerPrefab, new Vector3Int(0,0,0));
+        SpawnPlayer(playerPrefab, new Vector3Int(0,0,0));
+
     }
 
     // Update is called once per frame
@@ -25,6 +29,14 @@ public class EntityManager : MonoBehaviour
         
     }
 
+    private void SpawnPlayer(GameObject player, Vector3Int gridPosition)
+    {
+        Vector3 location = tileManager.GetTruePosition(gridPosition);
+
+        GameObject entityObject = Instantiate(player, location, Quaternion.identity);
+
+        Player = player.GetComponent<Player>();
+    }
 
     private void SpawnEntity(GameObject entity, Vector3Int gridPosition)
     {
@@ -33,9 +45,9 @@ public class EntityManager : MonoBehaviour
         GameObject entityObject = Instantiate(entity, location, Quaternion.identity);
 
         //Add to entity list
-        entities.Add(entityObject);
+        entities.Add(entityObject.GetComponent<Entity>());
     }
 
-    public List<GameObject> GetEntityList() => entities;
+    public List<Entity> GetEntityList() => entities;
 
 }

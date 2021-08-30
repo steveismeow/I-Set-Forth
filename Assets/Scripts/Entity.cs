@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    protected TurnManager turnManager;
+
     [SerializeField]
     private EntityData entityData;
 
@@ -21,14 +23,17 @@ public class Entity : MonoBehaviour
 
     private Vector3 curLocation;
 
+    protected bool endOfTurn;
+
     private void Awake()
     {
         Initialize(entityData);
+
     }
 
     private void Start()
     {
-        
+
     }
 
     public void Initialize(EntityData entityData)
@@ -45,4 +50,14 @@ public class Entity : MonoBehaviour
         this.curMana = entityData.baseMana;
     }
 
+
+    public virtual void StartTurn()
+    {
+        print("Player's turn has begun");
+        endOfTurn = false;
+    }
+
+    public virtual bool EndOfTurnTrigger() => endOfTurn = true;
+
+    public virtual bool GetEndOfTurnBool() => endOfTurn;
 }
