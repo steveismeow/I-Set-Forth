@@ -14,8 +14,5 @@ public class EntityData : ScriptableObject
     public int baseMovementSpeed;
     public int baseVisionRadius;
 
-    public Sprite highlight;
-    public Sprite background;
-    public Sprite border;
     public Sprite entitySprite;
 }

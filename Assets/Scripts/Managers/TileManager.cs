@@ -128,7 +128,7 @@ public class TileManager : MonoBehaviour
     #endregion
 
 
-    //Set Placement Tiles at startup
+    #region Adjacency
     private void InitialTileAdjacencySetUp()
     {
         List<Vector3> tileLocations = GetTileLocations();
@@ -143,16 +143,6 @@ public class TileManager : MonoBehaviour
     //Analyze the board and place Placement Tiles adjacent to existing tiles on the tilemap using their Vector3 position
     private void PlacementTileAdjacency(Vector3 tileLocation)
     {
-        //A* pathfinding to determine adjacencyRange?/////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //List<TileBase> adjacentTiles = new List<TileBase>();
-
-        ////Add tile at tileLocation to list
-        //Vector3Int gridPosition = GetVector3IntFromPosition(tileLocation);
-        //adjacentTiles.Add(tileMap.GetTile(gridPosition));
-
-        //Recursive method for determining adjacency
-
-
         //Searches a cross-shaped section in all cardinal directions from tileLocation for nuill space and places Placement Tile at each null//////////////////
         //Search x directions
         for (int x = (int)(tileLocation.x - adjacencyRange); x <= (int)(tileLocation.x + adjacencyRange); x++)
@@ -176,6 +166,11 @@ public class TileManager : MonoBehaviour
                 tileMap.SetTile(locVector, tileNameCodex["Placement Tile"].tile);
             }
         }
+    }
+
+    #endregion
+
+    //Set Placement Tiles at startup
 
 
         ////Searches a 3x3 grid centered on the tileLocation for null space and places Placement Tile at each null////////////////////////////////////////////////
@@ -193,7 +188,6 @@ public class TileManager : MonoBehaviour
         //    }
         //}
 
-    }
 
     //Place Tile
     private void PlaceTile(Vector3Int gridPosition, string tileName)
@@ -207,33 +201,4 @@ public class TileManager : MonoBehaviour
         PlacementTileAdjacency(position);
 
     }
-
-
-
 }
-
-
-
-
-//BoundsInt locBounds = new BoundsInt((int)(loc.x - 1), (int)(loc.y - 1), (int)(loc.z), 3, 3, 0 );
-
-//TileBase[] tiles = tileMap.GetTilesBlock(locBounds);
-
-//print(tiles.Length);
-
-////check for null
-//for(int x= 0; x < tiles.Length; x++)
-//{
-//    TileBase curTile = tiles[x];
-
-//    print(curTile.name);
-
-//    print("lmao");
-
-//    //if (curTile == null)
-//    //{
-//    //    //set tile
-
-//    //}
-//}
-//}

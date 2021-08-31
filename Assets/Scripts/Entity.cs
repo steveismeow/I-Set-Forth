@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    protected TurnManager turnManager;
+
     [SerializeField]
     private EntityData entityData;
+    [SerializeField]
+    private EntityUIFrameData frame;
 
+    public int level;
     public int maxAP;
     public int maxHealth;
     public int maxMana;
@@ -19,6 +24,7 @@ public class Entity : MonoBehaviour
     public int curMana;
 
     private Vector3 curLocation;
+    protected bool myTurn;
 
     private void Awake()
     {
@@ -27,7 +33,12 @@ public class Entity : MonoBehaviour
 
     private void Start()
     {
-        
+
+    }
+
+    private void Update()
+    {
+
     }
 
     public void Initialize(EntityData entityData)
@@ -43,5 +54,26 @@ public class Entity : MonoBehaviour
         this.curAP = entityData.baseAP;
         this.curMana = entityData.baseMana;
     }
+
+    /// <summary>
+    /// Sets up entity for the beginning of it's turn.
+    /// </summary>
+    public virtual void StartTurn()
+    {
+        myTurn = true;
+    }
+
+    /// <summary>
+    /// Finishes entity turn.
+    /// </summary>
+    public virtual void EndOfTurnTrigger() => myTurn = false;
+
+    /// <summary>
+    /// Get function to access myTurn from this class.
+    /// </summary>
+    /// <returns>myTurn</returns>
+    public virtual bool GetTurnStatus() => myTurn;
+
+    public virtual Vector3 GetPostion() => curLocation;
 
 }
