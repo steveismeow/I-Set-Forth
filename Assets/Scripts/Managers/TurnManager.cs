@@ -54,7 +54,7 @@ public class TurnManager : MonoBehaviour
     {
         ActiveEntities.Sort((x, y) => x.level.CompareTo(y.level));
     }
-
+    
     /// <summary>
     /// Adds all entities to the TurnOrderList. Player goes first and then all remaining entities.
     /// </summary>
@@ -73,24 +73,20 @@ public class TurnManager : MonoBehaviour
     /// <summary>
     /// Coroutine to handle turn order. Iterates through the entire TurnOrderList and yields until the entity turn has complete and then removes entity from the turn order.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Ienumerator coroutine</returns>
     private IEnumerator ExecutingTurns()
     {
-        Entity entity;
+
         print("Starting Turns");
-        while (TurnOrderList.Count != 0)
-        {
+
+        foreach (Entity entity in TurnOrderList){
             // Gets next entity up in the turnorder
-            entity = TurnOrderList[0];
 
             print("Starting entity turn");
             //Sets endofturn
             entity.StartTurn();
 
             yield return new WaitWhile(()=>entity.GetTurnStatus());
-
-            print("Removing entity from turnorder");
-            TurnOrderList.Remove(entity);
         }
 
         TurnOrderReset();
