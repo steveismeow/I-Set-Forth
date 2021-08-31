@@ -77,12 +77,9 @@ public class TurnManager : MonoBehaviour
     private IEnumerator ExecutingTurns()
     {
 
-        print("Starting Turns");
-
         foreach (Entity entity in TurnOrderList){
             // Gets next entity up in the turnorder
 
-            print("Starting entity turn");
             //Sets endofturn
             entity.StartTurn();
 
