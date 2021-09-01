@@ -10,16 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d8253b63fb3504641a4b0462a7ad52fa, type: 3}
-  m_Name: PlayerData
+  m_Name: SpiderData
   m_EditorClassIdentifier: 
   entityName: 
-  baseAP: 0
-  baseHealth: 0
+  baseAP: 3
+  baseHealth: 10
   baseMana: 0
-  baseAttack: 0
-  baseMovementSpeed: 0
+  baseAttack: 5
+  baseMovementSpeed: 1
   baseVisionRadius: 0
-  highlight: {fileID: 0}
-  background: {fileID: 21300000, guid: 0b5b89efd211cee4987c2ab5a8196b83, type: 3}
-  border: {fileID: 21300000, guid: d855e59d0562fc043aea961a1d6a9850, type: 3}
-  entitySprite: {fileID: 21300000, guid: 6381c64322b93b14880fedfb9e79427f, type: 3}
+  entitySprite: {fileID: 21300000, guid: 5a9d190785303c744aa932ad9fb4d7da, type: 3}

@@ -1014,6 +1014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 174813924022061185, guid: 5867ff5cf891dbc48932050c6c56d852, type: 3}
+  enemyPrefab: {fileID: 3777091894727400298, guid: 6d7481f0d02da8648b9de4ef5dea8efc, type: 3}
   Player: {fileID: 0}
   tileManager: {fileID: 1321583210}
   entities: []

@@ -5,9 +5,22 @@ using UnityEngine;
 public class Player : Entity
 {
     public static Player Instance { get; private set; }
+
+    #region State Variables
+    public DecisionState decisionState { get; private set; }
+
+    #endregion
+
+    private void Start()
+    {
+        decisionState = new DecisionState(this, StateMachine);
+
+    }
+
     private void Update()
     {
  
+
         if (myTurn)
         {
             //Temp: passes turn on spacebar
@@ -19,22 +32,11 @@ public class Player : Entity
         }
     }
 
-    //Gets
+    public override void StartTurn()
+    {
+        base.StartTurn();
 
+        StateMachine.ChangeState(decisionState);
 
-    //Leaving here in case we want to modify theses, otherwise these base functions are already defined in Entity.
-    //public override void StartTurn()
-    //{
-    //    base.StartTurn();
-    //}
-
-    //public override void EndOfTurnTrigger()
-    //{
-    //    base.EndOfTurnTrigger();
-    //}
-
-    //public override bool GetTurnStatus()
-    //{
-    //    return base.GetTurnStatus();
-    //}
+    }
 }

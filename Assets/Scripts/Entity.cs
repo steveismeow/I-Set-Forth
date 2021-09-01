@@ -26,9 +26,27 @@ public class Entity : MonoBehaviour
     private Vector3 curLocation;
     protected bool myTurn;
 
+    #region State Variables
+    public EntityStateMachine StateMachine { get; private set; }
+
+    public MoveState moveState { get; private set; }
+    public WaitState waitState { get; private set; }
+
+    #endregion
+
+    #region Unity Callback Functions
     private void Awake()
     {
         Initialize(entityData);
+
+        //State Machine Setup
+        StateMachine = new EntityStateMachine();
+
+        waitState = new WaitState(this, StateMachine);
+        moveState = new MoveState(this, StateMachine);
+
+        StateMachine.InitializeState(waitState);
+
     }
 
     private void Start()
@@ -41,6 +59,11 @@ public class Entity : MonoBehaviour
 
     }
 
+    #endregion
+
+    /// <summary>
+    /// Fetches starting stats based on entityData values
+    /// </summary>
     public void Initialize(EntityData entityData)
     {
         this.maxHealth = entityData.baseHealth;
@@ -61,6 +84,8 @@ public class Entity : MonoBehaviour
     public virtual void StartTurn()
     {
         myTurn = true;
+
+        curAP = maxAP;
     }
 
     /// <summary>
@@ -74,6 +99,10 @@ public class Entity : MonoBehaviour
     /// <returns>myTurn</returns>
     public virtual bool GetTurnStatus() => myTurn;
 
+    /// <summary>
+    /// Get function to determine current position.
+    /// </summary>
+    /// <returns>curLocation</returns>
     public virtual Vector3 GetPostion() => curLocation;
 
 }

@@ -60,13 +60,13 @@ public class TurnManager : MonoBehaviour
     /// </summary>
     private void PopulateTurnOrderList()
     {
+
         //Add player to the top of the initiative.
         TurnOrderList.Add(entityManager.GetPlayer());
         //Add all active entities to the turn order.
         TurnOrderList.AddRange(ActiveEntities);
 
-        //TurnOrderList = ActiveEntities;
-        //TurnOrderList.Insert(0, entityManager.GetPlayer());
+        //TODO: Create list for Inactive entities
     }
 
 
@@ -84,12 +84,16 @@ public class TurnManager : MonoBehaviour
             entity.StartTurn();
 
             yield return new WaitWhile(()=>entity.GetTurnStatus());
+
         }
+
+        TurnOrderList.Clear();
 
         TurnOrderReset();
 
+
         //TODO: End of round stuff
-        //Incremenmt World Clock, Update Gameboard, Check Level Progression, Check New Spawns, Reset AP
+        //Incremenmt World Clock, Update Gameboard, Check Level Progression (+ perform check for inactive enemies), Check New Spawns, Reset AP
 
     }
 

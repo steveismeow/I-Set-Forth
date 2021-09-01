@@ -8,6 +8,9 @@ public class EntityManager : MonoBehaviour
 
     public GameObject playerPrefab;
 
+    //Test
+    public GameObject enemyPrefab;
+
     public Player Player;
 
     public TileManager tileManager;
@@ -19,7 +22,9 @@ public class EntityManager : MonoBehaviour
     void Awake()
     {
         //Spawn the player at 0,0
-        SpawnPlayer(playerPrefab, new Vector3Int(0,0,0));
+        SpawnPlayer(playerPrefab, new Vector3Int(0, 0, 0));
+
+        SpawnEntity(enemyPrefab, new Vector3Int(-1, 0, 0));
 
     }
 

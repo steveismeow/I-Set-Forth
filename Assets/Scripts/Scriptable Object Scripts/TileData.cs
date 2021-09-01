@@ -12,4 +12,5 @@ public class TileData : ScriptableObject
     public int rangeMultiplier;
 
     public bool emptyTile;
+    public bool spawnTIle;
 }
