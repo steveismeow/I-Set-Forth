@@ -32,6 +32,9 @@ public class Player : Entity
         }
     }
 
+    /// <summary>
+    /// Functions called at turn start
+    /// </summary>
     public override void StartTurn()
     {
         base.StartTurn();
@@ -40,3 +43,4 @@ public class Player : Entity
 
     }
 }
+
