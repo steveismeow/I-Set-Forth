@@ -30,7 +30,6 @@ public class Entity : MonoBehaviour
     public EntityStateMachine StateMachine { get; private set; }
 
     public MoveState moveState { get; private set; }
-    public WaitState waitState { get; private set; }
 
     #endregion
 
@@ -42,11 +41,7 @@ public class Entity : MonoBehaviour
         //State Machine Setup
         StateMachine = new EntityStateMachine();
 
-        waitState = new WaitState(this, StateMachine);
         moveState = new MoveState(this, StateMachine);
-
-        StateMachine.InitializeState(waitState);
-
     }
 
     private void Start()

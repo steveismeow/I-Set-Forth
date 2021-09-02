@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class State
+public abstract class State
 {
     protected Entity entity;
     protected EntityStateMachine stateMachine;
@@ -14,14 +14,16 @@ public class State
     }
 
 
-    public virtual void Enter()
+    public virtual IEnumerator Enter()
     {
-
+        yield break;
     }
 
-    public virtual void Exit()
+    public virtual IEnumerator Exit()
     {
-
+        yield break;
     }
+
+
 
 }

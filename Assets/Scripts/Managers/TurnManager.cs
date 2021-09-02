@@ -21,10 +21,6 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         TurnOrderReset();
-
-        //Tell entity at TurnOrderList[0] to take its turn
-        //entity.currentState = BatterUp!(this is a joke, but it may be worthwhile to utilize a simple entity state machine,
-        //in which the entity's turn coroutine can begin or whatever)
     }
 
     /// <summary>

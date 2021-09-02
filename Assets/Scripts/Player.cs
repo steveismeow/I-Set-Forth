@@ -7,14 +7,25 @@ public class Player : Entity
     public static Player Instance { get; private set; }
 
     #region State Variables
-    public DecisionState decisionState { get; private set; }
+    public PlayerTurnState playerTurnState { get; private set; }
+    public PlayerWaitState playerWaitState { get; private set; }
+
 
     #endregion
 
+    private void Awake()
+    {
+        playerTurnState = new PlayerTurnState(this, StateMachine);
+        playerWaitState = new PlayerWaitState(this, StateMachine);
+
+    }
+
     private void Start()
     {
-        decisionState = new DecisionState(this, StateMachine);
 
+
+
+        StateMachine.InitializeState(playerWaitState);
     }
 
     private void Update()
@@ -39,7 +50,7 @@ public class Player : Entity
     {
         base.StartTurn();
 
-        StateMachine.ChangeState(decisionState);
+        StateMachine.ChangeState(playerTurnState);
 
     }
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Translating player to designated Tile
+/// Entity is waiting for turn
 /// </summary>
-public class MoveState : State
+public class NPCWaitState : State
 {
-    public MoveState(Entity entity, EntityStateMachine stateMachine) : base(entity, stateMachine)
+    public NPCWaitState(Entity entity, EntityStateMachine stateMachine) : base(entity, stateMachine)
     {
 
     }
