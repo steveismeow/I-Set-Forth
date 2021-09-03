@@ -27,8 +27,10 @@ public class Entity : MonoBehaviour
     protected bool myTurn;
 
     #region State Variables
-    public EntityStateMachine StateMachine { get; private set; }
+    public EntityStateMachine StateMachine { get; set; }
 
+    //public TurnState turnState { get; private set; }
+    //public WaitState aitState { get; private set; }
     public MoveState moveState { get; private set; }
 
     #endregion
@@ -41,12 +43,13 @@ public class Entity : MonoBehaviour
         //State Machine Setup
         StateMachine = new EntityStateMachine();
 
-        moveState = new MoveState(this, StateMachine);
     }
 
     private void Start()
     {
+        print(StateMachine.name);
 
+        moveState = new MoveState(this, StateMachine);
     }
 
     private void Update()
@@ -81,6 +84,7 @@ public class Entity : MonoBehaviour
         myTurn = true;
 
         curAP = maxAP;
+
     }
 
     /// <summary>

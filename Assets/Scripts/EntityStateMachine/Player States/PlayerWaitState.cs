@@ -14,7 +14,7 @@ public class PlayerWaitState : State
 
     public override IEnumerator Enter()
     {
-        return base.Enter();
+        yield return new WaitForSeconds(2f);
     }
 
     public override IEnumerator Exit()

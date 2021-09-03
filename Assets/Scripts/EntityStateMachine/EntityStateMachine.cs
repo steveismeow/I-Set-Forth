@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EntityStateMachine : MonoBehaviour
 {
+
     public State currentState { get; private set; }
 
     public void InitializeState(State state)

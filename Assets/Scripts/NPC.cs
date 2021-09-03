@@ -9,14 +9,13 @@ public class NPC : Entity
 
     private void Awake()
     {
-        npcTurnState = new NPCTurnState(this, StateMachine);
-        npcWaitState = new NPCWaitState(this, StateMachine);
-
     }
 
     private void Start()
     {
 
+        npcTurnState = new NPCTurnState(this, StateMachine);
+        npcWaitState = new NPCWaitState(this, StateMachine);
 
 
         StateMachine.InitializeState(npcWaitState);
@@ -25,6 +24,7 @@ public class NPC : Entity
     {
         base.StartTurn();
 
+        //TEST: Instantly ends turn
         EndOfTurnTrigger();
     }
 }

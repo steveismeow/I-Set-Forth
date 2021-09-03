@@ -15,17 +15,17 @@ public class Player : Entity
 
     private void Awake()
     {
-        playerTurnState = new PlayerTurnState(this, StateMachine);
-        playerWaitState = new PlayerWaitState(this, StateMachine);
 
     }
 
     private void Start()
     {
-
+        playerTurnState = new PlayerTurnState(this, StateMachine);
+        playerWaitState = new PlayerWaitState(this, StateMachine);
 
 
         StateMachine.InitializeState(playerWaitState);
+
     }
 
     private void Update()
