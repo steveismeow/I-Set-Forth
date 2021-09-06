@@ -5,9 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class TileManager : MonoBehaviour
 {
-
-    [SerializeField]
-    private Tilemap tileMap;
+    //[SerializeField]
+    public Tilemap tileMap;
 
     [SerializeField]
     private List<TileData> tileDataList;
@@ -17,7 +16,7 @@ public class TileManager : MonoBehaviour
 
 
     private Dictionary<TileBase, TileData> dataFromTiles;
-    private Dictionary<string, TileData> tileNameCodex;
+    public Dictionary<string, TileData> tileNameCodex;
 
 
     #region Unity Callback Functions
@@ -190,7 +189,7 @@ public class TileManager : MonoBehaviour
 
 
     //Place Tile
-    private void PlaceTile(Vector3Int gridPosition, string tileName)
+    public void PlaceTile(Vector3Int gridPosition, string tileName)
     {
         tileMap.SetTile(gridPosition, tileNameCodex[tileName].tile);
 
