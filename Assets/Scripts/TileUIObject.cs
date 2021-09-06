@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/// <summary>
+/// Script on Tile UIObjects that manages behavior
+/// </summary>
 public class TileUIObject : MonoBehaviour
 {
     [SerializeField]
@@ -21,6 +24,9 @@ public class TileUIObject : MonoBehaviour
         tileStack = transform.parent;
     }
 
+    /// <summary>
+    /// While MouseButtonDown, drag object
+    /// </summary>
     private void Update()
     {
         if (isBeingHeld)
@@ -33,6 +39,9 @@ public class TileUIObject : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// On MouseButtonDown trigger bool
+    /// </summary>
     private void OnMouseDown()
     {
         if (Input.GetMouseButtonDown(0))
@@ -43,6 +52,9 @@ public class TileUIObject : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// On MouseButtonUp, either place a tile or return to Tile Inventory Stack
+    /// </summary>
     private void OnMouseUp()
     {
         isBeingHeld = false;
@@ -63,6 +75,7 @@ public class TileUIObject : MonoBehaviour
         }
         else
         {
+            //TODO: fix this
             transform.position = Vector3.zero;
         }
 
