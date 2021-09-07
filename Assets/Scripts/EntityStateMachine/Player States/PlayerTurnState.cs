@@ -13,11 +13,12 @@ public class PlayerTurnState : State
 
     public override IEnumerator Enter()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(10f);
     }
 
     public override IEnumerator Exit()
     {
         return base.Exit();
     }
+
 }

@@ -20,6 +20,8 @@ public class NPC : Entity
     {
         base.StartTurn();
 
+        StateMachine.ChangeState(npcTurnState);
+
         //TEST: Instantly ends turn
         EndOfTurnTrigger();
     }

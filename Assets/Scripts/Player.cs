@@ -26,7 +26,7 @@ public class Player : Entity
 
     private void Update()
     {
- 
+
 
         if (myTurn)
         {
@@ -35,6 +35,17 @@ public class Player : Entity
             {
                 EndOfTurnTrigger();
             }
+
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int gridPosition = tileManager.tileMap.WorldToCell(mousePosition);
+
+
+
+            actionManager.MoveInstantly(tileManager.GetTruePosition(gridPosition));
 
         }
     }

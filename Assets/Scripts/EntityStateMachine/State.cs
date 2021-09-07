@@ -16,6 +16,7 @@ public abstract class State
 
     public virtual IEnumerator Enter()
     {
+
         yield break;
     }
 
@@ -24,6 +25,10 @@ public abstract class State
         yield break;
     }
 
+    public override string ToString()
+    {
+        return this.GetType().Name.ToString();
+    }
 
 
 }

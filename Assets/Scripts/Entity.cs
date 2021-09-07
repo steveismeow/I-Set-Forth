@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    protected TurnManager turnManager;
+    protected TileManager tileManager;
 
+    [SerializeField]
+    protected ActionManager actionManager;
     [SerializeField]
     private EntityData entityData;
     [SerializeField]
@@ -42,6 +44,8 @@ public class Entity : MonoBehaviour
 
         //State Machine Setup
         StateMachine = this.gameObject.GetComponent<EntityStateMachine>();
+
+        tileManager = GameObject.FindWithTag("TileManager").GetComponent<TileManager>();
 
     }
 

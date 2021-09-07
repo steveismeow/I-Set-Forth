@@ -10,6 +10,7 @@ public class EntityStateMachine : MonoBehaviour
     public void InitializeState(State state)
     {
         currentState = state;
+        print(state);
         StartCoroutine(currentState.Enter());
     }
 
@@ -17,6 +18,7 @@ public class EntityStateMachine : MonoBehaviour
     {
         StartCoroutine(currentState.Exit());
         currentState = state;
+        print(state);
         StartCoroutine(currentState.Enter());
     }
 }
