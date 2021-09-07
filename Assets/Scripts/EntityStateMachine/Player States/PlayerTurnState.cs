@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Translating player to designated Tile
+/// Player is deciding action to take; Unity has paused world
 /// </summary>
-public class MoveState : State
+public class PlayerTurnState : State
 {
-    public MoveState(Entity entity, EntityStateMachine stateMachine) : base(entity, stateMachine)
+    public PlayerTurnState(Entity entity, EntityStateMachine stateMachine) : base(entity, stateMachine)
     {
-
     }
 
     public override IEnumerator Enter()
     {
-        return base.Enter();
+        yield return new WaitForSeconds(10f);
     }
 
     public override IEnumerator Exit()
     {
         return base.Exit();
     }
+
 }

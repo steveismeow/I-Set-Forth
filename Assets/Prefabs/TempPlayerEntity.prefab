@@ -338,6 +338,8 @@ GameObject:
   m_Component:
   - component: {fileID: 174813924022061191}
   - component: {fileID: 174813924022061190}
+  - component: {fileID: 8612290283647610862}
+  - component: {fileID: -1750102798834719716}
   m_Layer: 0
   m_Name: TempPlayerEntity
   m_TagString: Untagged
@@ -375,6 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f07dfdea35af0ff40870e32e441e3077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionManager: {fileID: -1750102798834719716}
   entityData: {fileID: 11400000, guid: b5976ba7a11d7a4428c0906f9584244c, type: 2}
   frame: {fileID: 11400000, guid: 5122048f4bc9e49449b4052c7e00e021, type: 2}
   level: 1
@@ -387,3 +390,27 @@ MonoBehaviour:
   curAP: 0
   curHealth: 0
   curMana: 0
+--- !u!114 &8612290283647610862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174813924022061185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5f5c182d1225543a9d2ded646cedad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1750102798834719716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174813924022061185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16fd136fa4b21ec4c8da3bbd99432b32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

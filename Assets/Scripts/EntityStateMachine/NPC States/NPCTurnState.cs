@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Translating player to designated Tile
+/// Entity is taking turn
 /// </summary>
-public class MoveState : State
+public class NPCTurnState : State
 {
-    public MoveState(Entity entity, EntityStateMachine stateMachine) : base(entity, stateMachine)
+    public NPCTurnState(Entity entity, EntityStateMachine stateMachine) : base(entity, stateMachine)
     {
 
     }
 
     public override IEnumerator Enter()
     {
-        return base.Enter();
+        yield return new WaitForSeconds(2f);
     }
 
     public override IEnumerator Exit()

@@ -7,19 +7,26 @@ public class Player : Entity
     public static Player Instance { get; private set; }
 
     #region State Variables
-    public DecisionState decisionState { get; private set; }
+    public PlayerTurnState playerTurnState { get; private set; }
+    public PlayerWaitState playerWaitState { get; private set; }
+
 
     #endregion
 
+
     private void Start()
     {
-        decisionState = new DecisionState(this, StateMachine);
+        playerTurnState = new PlayerTurnState(this, StateMachine);
+        playerWaitState = new PlayerWaitState(this, StateMachine);
+
+
+        StateMachine.InitializeState(playerWaitState);
 
     }
 
     private void Update()
     {
- 
+
 
         if (myTurn)
         {
@@ -28,6 +35,17 @@ public class Player : Entity
             {
                 EndOfTurnTrigger();
             }
+
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int gridPosition = tileManager.tileMap.WorldToCell(mousePosition);
+
+
+
+            actionManager.MoveInstantly(tileManager.GetTruePosition(gridPosition));
 
         }
     }
@@ -39,7 +57,7 @@ public class Player : Entity
     {
         base.StartTurn();
 
-        StateMachine.ChangeState(decisionState);
+        StateMachine.ChangeState(playerTurnState);
 
     }
 }

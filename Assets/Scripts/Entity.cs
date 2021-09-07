@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    protected TurnManager turnManager;
+    protected TileManager tileManager;
 
+    [SerializeField]
+    protected ActionManager actionManager;
     [SerializeField]
     private EntityData entityData;
     [SerializeField]
@@ -27,10 +29,11 @@ public class Entity : MonoBehaviour
     protected bool myTurn;
 
     #region State Variables
-    public EntityStateMachine StateMachine { get; private set; }
+    public EntityStateMachine StateMachine { get; set; }
 
+    //public TurnState turnState { get; private set; }
+    //public WaitState aitState { get; private set; }
     public MoveState moveState { get; private set; }
-    public WaitState waitState { get; private set; }
 
     #endregion
 
@@ -40,18 +43,17 @@ public class Entity : MonoBehaviour
         Initialize(entityData);
 
         //State Machine Setup
-        StateMachine = new EntityStateMachine();
+        StateMachine = this.gameObject.GetComponent<EntityStateMachine>();
 
-        waitState = new WaitState(this, StateMachine);
-        moveState = new MoveState(this, StateMachine);
-
-        StateMachine.InitializeState(waitState);
+        tileManager = GameObject.FindWithTag("TileManager").GetComponent<TileManager>();
 
     }
 
     private void Start()
     {
+        print(StateMachine.name);
 
+        moveState = new MoveState(this, StateMachine);
     }
 
     private void Update()
@@ -86,6 +88,7 @@ public class Entity : MonoBehaviour
         myTurn = true;
 
         curAP = maxAP;
+
     }
 
     /// <summary>
