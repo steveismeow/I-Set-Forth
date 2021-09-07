@@ -7,10 +7,6 @@ public class NPC : Entity
     public NPCTurnState npcTurnState { get; private set; }
     public NPCWaitState npcWaitState { get; private set; }
 
-    private void Awake()
-    {
-    }
-
     private void Start()
     {
 

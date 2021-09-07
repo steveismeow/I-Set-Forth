@@ -13,10 +13,6 @@ public class Player : Entity
 
     #endregion
 
-    private void Awake()
-    {
-
-    }
 
     private void Start()
     {

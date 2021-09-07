@@ -41,7 +41,7 @@ public class Entity : MonoBehaviour
         Initialize(entityData);
 
         //State Machine Setup
-        StateMachine = new EntityStateMachine();
+        StateMachine = this.gameObject.GetComponent<EntityStateMachine>();
 
     }
 
