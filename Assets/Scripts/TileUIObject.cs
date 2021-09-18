@@ -8,20 +8,43 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public class TileUIObject : MonoBehaviour
 {
-    [SerializeField]
-    private Transform tileStack;
+    public Camera uiCamera;
 
-    [SerializeField]
-    private TileManager tileManager;
+    public TileManager tileManager;
+
+    private GameObject tileStackObject;
+
+    private TileStack tileStackScript;
+
 
     [SerializeField]
     private TileData tileData;
 
+    [SerializeField]
+    private SpriteRenderer shadowRenderer;
+
+    [SerializeField]
+    private SpriteRenderer renderer;//error on use, i think this is because of a deprecated function though?
+
+    [SerializeField]
+    private BoxCollider2D collider;//error on use, i think this is because of a deprecated function though?
+
+
     private bool isBeingHeld = false;
 
-    private void Awake()
+    public enum TileType
     {
-        tileStack = transform.parent;
+        forest,
+        desert,
+        mountain
+    }
+
+    public TileType tileType;
+
+    private void Start()
+    {
+        tileStackObject = transform.parent.gameObject;
+        tileStackScript = tileStackObject.GetComponent<TileStack>();
     }
 
     /// <summary>
@@ -32,15 +55,15 @@ public class TileUIObject : MonoBehaviour
         if (isBeingHeld)
         {
             Vector3 mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            mousePos = uiCamera.ScreenToWorldPoint(mousePos);
 
-            this.gameObject.transform.position = new Vector3(mousePos.x, mousePos.y, 0.0f);
+            transform.position = new Vector3(mousePos.x, mousePos.y - 0.275f);
         }
 
     }
 
     /// <summary>
-    /// On MouseButtonDown trigger bool
+    /// On MouseButtonDown trigger bool, render order +1 to appear above other tiles
     /// </summary>
     private void OnMouseDown()
     {
@@ -48,6 +71,11 @@ public class TileUIObject : MonoBehaviour
         {
 
             isBeingHeld = true;
+            renderer.sortingOrder = 1;
+            shadowRenderer.enabled = false;
+
+            transform.SetParent(tileStackObject.transform.parent.parent, false);
+
 
         }
     }
@@ -58,6 +86,9 @@ public class TileUIObject : MonoBehaviour
     private void OnMouseUp()
     {
         isBeingHeld = false;
+        renderer.sortingOrder = 0;
+        shadowRenderer.enabled = true;
+
 
         Vector3 mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -69,14 +100,18 @@ public class TileUIObject : MonoBehaviour
         {
             print("you have selected a placement tile");
             tileManager.PlaceTile(gridPosition, tileData.name);
+            transform.SetParent(null, false);
+            tileStackScript.ColliderActivation();
 
             Destroy(this.gameObject);
 
         }
         else
         {
-            //TODO: fix this
-            transform.position = Vector3.zero;
+            //transform.position = Vector3.zero;
+            transform.SetParent(tileStackObject.transform, false);
+            tileStackScript.ColliderActivation();
+
         }
 
     }

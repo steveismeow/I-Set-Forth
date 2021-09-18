@@ -38,16 +38,17 @@ public class Player : Entity
 
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int gridPosition = tileManager.tileMap.WorldToCell(mousePosition);
+        ////Testing MoveInstantly() action
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    Vector3Int gridPosition = tileManager.tileMap.WorldToCell(mousePosition);
 
 
 
-            actionManager.MoveInstantly(tileManager.GetTruePosition(gridPosition));
+        //    actionManager.MoveInstantly(tileManager.GetTruePosition(gridPosition));
 
-        }
+        //}
     }
 
     /// <summary>
