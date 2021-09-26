@@ -16,13 +16,21 @@ public class NPC : Entity
 
         StateMachine.InitializeState(npcWaitState);
     }
+
     public override void StartTurn()
     {
         base.StartTurn();
 
         StateMachine.ChangeState(npcTurnState);
 
-        //TEST: Instantly ends turn
-        EndOfTurnTrigger();
     }
+
+    public override bool ExitTurnState()
+    {
+        StateMachine.ChangeState(npcWaitState);
+
+        return base.ExitTurnState();
+
+    }
+
 }

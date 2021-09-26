@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    protected TileManager tileManager;
+    public TileManager tileManager { get; private set; }
+    public ActionManager actionManager;
 
-    [SerializeField]
-    protected ActionManager actionManager;
     [SerializeField]
     private EntityData entityData;
     [SerializeField]
@@ -26,7 +25,15 @@ public class Entity : MonoBehaviour
     public int curMana;
 
     private Vector3 curLocation;
+
+    //TurnManager bool indicating turn status
     protected bool myTurn;
+    //State Machine trigger to end entity turn
+    protected bool exitTurnState;
+
+    //List of available actions
+    public List<Action> availableActions = new List<Action>();
+
 
     #region State Variables
     public EntityStateMachine StateMachine { get; set; }
@@ -85,9 +92,10 @@ public class Entity : MonoBehaviour
     /// </summary>
     public virtual void StartTurn()
     {
-        myTurn = true;
-
         curAP = maxAP;
+        myTurn = true;
+        exitTurnState = false;
+
 
     }
 
@@ -101,6 +109,12 @@ public class Entity : MonoBehaviour
     /// </summary>
     /// <returns>myTurn</returns>
     public virtual bool GetTurnStatus() => myTurn;
+
+
+    public virtual bool ExitTurnState() => exitTurnState = true;
+    public virtual bool GetExitTurnState() => exitTurnState;
+
+
 
     /// <summary>
     /// Get function to determine current position.

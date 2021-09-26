@@ -25,6 +25,10 @@ public class EntityManager : MonoBehaviour
         SpawnPlayer(playerPrefab, new Vector3Int(0, 0, 0));
 
         SpawnEntity(enemyPrefab, new Vector3Int(-1, 0, 0));
+        SpawnEntity(enemyPrefab, new Vector3Int(-1, -1, 0));
+        SpawnEntity(enemyPrefab, new Vector3Int(-2, -1, 0));
+
+
 
     }
 

@@ -16,6 +16,8 @@ public class TileUIObject : MonoBehaviour
 
     private TileStack tileStackScript;
 
+    public Player player;
+
 
     [SerializeField]
     private TileData tileData;
@@ -96,12 +98,14 @@ public class TileUIObject : MonoBehaviour
 
         TileBase selectedTile = tileManager.tileMap.GetTile(gridPosition);
 
+
         if (selectedTile != null && selectedTile == tileManager.tileNameCodex["Placement Tile"].tile)
         {
             print("you have selected a placement tile");
             tileManager.PlaceTile(gridPosition, tileData.name);
             transform.SetParent(null, false);
             tileStackScript.ColliderActivation();
+            player.turnInputManager.UseAP(1);
 
             Destroy(this.gameObject);
 

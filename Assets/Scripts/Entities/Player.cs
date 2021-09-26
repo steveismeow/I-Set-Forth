@@ -13,6 +13,9 @@ public class Player : Entity
 
     #endregion
 
+    public PlayerTurnInputManager turnInputManager;
+
+
 
     private void Start()
     {
@@ -28,15 +31,20 @@ public class Player : Entity
     {
 
 
-        if (myTurn)
-        {
-            //Temp: passes turn on spacebar
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                EndOfTurnTrigger();
-            }
+        //if (myTurn)
+        //{
+        //    //Temp: passes turn on spacebar
+        //    if (Input.GetKeyDown(KeyCode.Space))
+        //    {
+        //        ExitTurnState();
+        //    }
 
-        }
+        //    //if (curAP <= 0)
+        //    //{
+        //    //    ExitTurnState();
+        //    //}
+
+        //}
 
         ////Testing MoveInstantly() action
         //if (Input.GetMouseButtonDown(0))
@@ -56,9 +64,21 @@ public class Player : Entity
     /// </summary>
     public override void StartTurn()
     {
+        print("Player StartTurn() called");
         base.StartTurn();
 
         StateMachine.ChangeState(playerTurnState);
+
+    }
+
+    public override bool ExitTurnState()
+    {
+        turnInputManager.enabled = false;
+
+        StateMachine.ChangeState(playerWaitState);
+
+
+        return base.ExitTurnState();
 
     }
 }

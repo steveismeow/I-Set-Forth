@@ -13,6 +13,8 @@ public class TileInventoryManager : MonoBehaviour
     //Alternatively, and, depending on how we want to store the player inventory information, 
     //we could instead pull that information from the player's data, then generate these objects on the fly. That sounds kinda hard though idk!
     //Anyway, we're gonna jank it with option 1 for now. 
+    private Player player;
+
     [SerializeField]
     private Camera uiCamera;
 
@@ -34,6 +36,7 @@ public class TileInventoryManager : MonoBehaviour
     void Start()
     {
         //Get a reference to the Player
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
         //TEST: Generate tileobjects from the list, create a certain number of each
         PopulateInventory();
@@ -94,6 +97,7 @@ public class TileInventoryManager : MonoBehaviour
                         obj.transform.SetParent(forestTileStack.transform, false);
                         var objData = obj.GetComponent<TileUIObject>();
                         objData.tileManager = tileManager;
+                        objData.player = player;
                     }
 
                     forestTileStack.GetComponent<TileStack>().ColliderActivation();
@@ -112,7 +116,7 @@ public class TileInventoryManager : MonoBehaviour
                         obj.transform.SetParent(mountainTileStack.transform, false);
                         var objData = obj.GetComponent<TileUIObject>();
                         objData.tileManager = tileManager;
-
+                        objData.player = player;
                     }
 
                     mountainTileStack.GetComponent<TileStack>().ColliderActivation();

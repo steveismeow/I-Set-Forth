@@ -340,9 +340,10 @@ GameObject:
   - component: {fileID: 174813924022061190}
   - component: {fileID: 8612290283647610862}
   - component: {fileID: -1750102798834719716}
+  - component: {fileID: 1737130183488062022}
   m_Layer: 0
   m_Name: TempPlayerEntity
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -382,14 +383,16 @@ MonoBehaviour:
   frame: {fileID: 11400000, guid: 5122048f4bc9e49449b4052c7e00e021, type: 2}
   level: 1
   maxAP: 3
-  maxHealth: 10
-  maxMana: 0
-  attack: 4
+  maxHealth: 1
+  maxMana: 1
+  attack: 1
   movementSpeed: 1
   visionRadius: 8
   curAP: 0
   curHealth: 0
   curMana: 0
+  availableActions: []
+  turnInputManager: {fileID: 1737130183488062022}
 --- !u!114 &8612290283647610862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,3 +417,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16fd136fa4b21ec4c8da3bbd99432b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1737130183488062022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174813924022061185}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07560e0142edb7241875edbb5159e863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 174813924022061190}
+  currentAP: 0

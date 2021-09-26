@@ -14,11 +14,19 @@ public class NPCTurnState : State
 
     public override IEnumerator Enter()
     {
-        yield return new WaitForSeconds(2f);
+        //Activate AI
+        entity.GetComponent<NPCAI>().enabled = true;
+
+        yield return new WaitUntil(() => entity.GetExitTurnState());
+
+        Exit();
     }
 
     public override IEnumerator Exit()
     {
+        //REFACTORING: We can bring this functionality to the base State class and the base Entity class
+        entity.EndOfTurnTrigger();
+
         return base.Exit();
     }
 }

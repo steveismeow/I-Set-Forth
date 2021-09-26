@@ -12,7 +12,7 @@ public class TurnManager : MonoBehaviour
     private List<Entity> TurnOrderList = new List<Entity>();
 
     [SerializeField]
-    private List<Entity> ActiveEntities = new List<Entity>();
+    private List<Entity> ActiveNPCEntities = new List<Entity>();
 
     private bool entityIsTakingItsTurn;
     private Coroutine executingTurnCoroutine;
@@ -29,7 +29,7 @@ public class TurnManager : MonoBehaviour
     /// <param name="entityList">list of all entities on the gameboard</param>
     private void FilterActiveEntities(List<Entity> entityList)
     {
-        ActiveEntities = entityManager.GetEntityList();
+        ActiveNPCEntities = entityManager.GetEntityList();
 
         //foreach (GameObject entity in entityList)
         //{
@@ -48,7 +48,7 @@ public class TurnManager : MonoBehaviour
     /// </summary>
     private void SortActiveEntities()
     {
-        ActiveEntities.Sort((x, y) => x.level.CompareTo(y.level));
+        ActiveNPCEntities.Sort((x, y) => x.level.CompareTo(y.level));
     }
     
     /// <summary>
@@ -60,7 +60,7 @@ public class TurnManager : MonoBehaviour
         //Add player to the top of the initiative.
         TurnOrderList.Add(entityManager.GetPlayer());
         //Add all active entities to the turn order.
-        TurnOrderList.AddRange(ActiveEntities);
+        TurnOrderList.AddRange(ActiveNPCEntities);
 
         //TODO: Create list for Inactive entities
     }
@@ -78,10 +78,12 @@ public class TurnManager : MonoBehaviour
 
             //Sets endofturn
             entity.StartTurn();
+            print(entity.GetTurnStatus());
 
             yield return new WaitWhile(()=>entity.GetTurnStatus());
 
-            print(entity);
+            print(entity.GetTurnStatus());
+
         }
 
         TurnOrderList.Clear();
