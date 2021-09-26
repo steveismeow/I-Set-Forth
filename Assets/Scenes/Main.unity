@@ -1156,7 +1156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityManager: {fileID: 1716641466}
   TurnOrderList: []
-  ActiveEntities: []
+  ActiveNPCEntities: []
 --- !u!4 &1923345767
 Transform:
   m_ObjectHideFlags: 0
